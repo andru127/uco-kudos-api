@@ -6,7 +6,6 @@ import co.edu.uco.ucokudos.services.input.PageResult;
 import co.edu.uco.ucokudos.services.output.ports.repositories.KudoRepository;
 import co.edu.uco.ucokudos.services.usecases.UseCaseWithReturn;
 
-/** Lectura paginada del muro de Kudos (operación más frecuente, DRV-002). */
 public class ListKudoFeedInteractor implements UseCaseWithReturn<PageQuery, PageResult<KudoDomain>> {
 
     private final KudoRepository kudoRepository;

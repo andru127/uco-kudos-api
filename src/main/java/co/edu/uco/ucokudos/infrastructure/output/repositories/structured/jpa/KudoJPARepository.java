@@ -14,7 +14,6 @@ import java.util.UUID;
 
 public interface KudoJPARepository extends JpaRepository<KudoEntityJPA, UUID> {
 
-    /** JOIN FETCH evita el problema N+1 al leer autor, destinatario y categoría del muro. */
     @Query(value = """
             select k from KudoEntityJPA k
             join fetch k.author join fetch k.recipient join fetch k.category

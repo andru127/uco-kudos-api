@@ -6,7 +6,6 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
-/** Usuario de la comunidad UCO. Inmutable: los cambios producen una nueva instancia. */
 public record UserDomain(UUID id, String fullName, String email, String phone, Role role, boolean active) {
 
     private static final Pattern EMAIL = Pattern.compile("^[\\w.+-]+@[\\w-]+(\\.[\\w-]+)+$");

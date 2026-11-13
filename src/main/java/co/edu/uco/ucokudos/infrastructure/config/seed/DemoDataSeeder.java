@@ -14,10 +14,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * Crea un usuario por rol si no existen (idempotente). La contraseña llega por variable de entorno
- * (DEMO_PASSWORD), nunca se escribe en el código ni en las migraciones.
- */
 @Component
 public class DemoDataSeeder implements ApplicationRunner {
 

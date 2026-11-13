@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-/** Las categorías casi nunca cambian y se leen en cada publicación: candidatas ideales para caché. */
 @Component
 public class CategoryRepositoryAdapter implements CategoryRepository {
 

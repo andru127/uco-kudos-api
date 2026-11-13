@@ -12,10 +12,6 @@ import co.edu.uco.ucokudos.services.usecases.UseCaseWithReturn;
 import java.time.Clock;
 import java.util.Locale;
 
-/**
- * Permite al usuario actualizar su correo y celular de notificación.
- * Simplificación de línea base: en la arquitectura objetivo el cambio exige re-verificación (OTP).
- */
 public class UpdateContactInteractor implements UseCaseWithReturn<UpdateContactCommand, UserDomain> {
 
     private final UserRepository userRepository;

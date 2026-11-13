@@ -21,13 +21,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Canal de correo con dos proveedores intercambiables por configuración:
- * <ul>
- *   <li>brevo: API HTTP transaccional de Brevo (funciona en PaaS que bloquean puertos SMTP, como Render free).</li>
- *   <li>smtp: cualquier servidor SMTP (Gmail con contraseña de aplicación, Outlook, Mailtrap...).</li>
- * </ul>
- */
 @Component
 public class EmailNotificationSender implements NotificationSender {
 
@@ -100,7 +93,6 @@ public class EmailNotificationSender implements NotificationSender {
         }
     }
 
-    /** Todo dato de usuario se escapa: evita inyección de HTML en el correo. */
     private String buildHtml(KudoNotification notification) {
         String link = properties.frontendUrl() + "/?kudo=" + notification.kudoId();
         return """

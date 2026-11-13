@@ -12,7 +12,6 @@ public interface KudoRepository {
 
     void create(KudoDomain kudo);
 
-    /** Los adjuntos se devuelven solo con metadatos (content = null) para no cargar binarios en lecturas masivas. */
     Optional<KudoDomain> findById(UUID id);
 
     PageResult<KudoDomain> findFeed(PageQuery query);

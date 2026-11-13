@@ -10,10 +10,6 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * Hace cumplir la Regla de Dependencia de Clean Architecture en el pipeline:
- * dominio y servicios no pueden depender de frameworks ni de la capa de infraestructura.
- */
 class CleanArchitectureRulesTest {
 
     private static final Path BASE = Path.of("src/main/java/co/edu/uco/ucokudos");

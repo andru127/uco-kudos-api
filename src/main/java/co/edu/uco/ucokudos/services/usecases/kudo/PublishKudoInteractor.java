@@ -26,15 +26,6 @@ import java.util.HexFormat;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * Caso de uso obligatorio de la línea base: Publicar Kudo.
- * <ol>
- *   <li>Valida reglas de negocio y persiste el Kudo con sus adjuntos (paso 1).</li>
- *   <li>Registra auditoría KUDO_PUBLISHED en la MISMA transacción (paso 5).</li>
- *   <li>Publica el evento KudoPublishedEvent; correo, WhatsApp y push (pasos 2-4) se procesan
- *       de forma asíncrona DESPUÉS del commit, así la respuesta al usuario no espera a terceros.</li>
- * </ol>
- */
 public class PublishKudoInteractor implements UseCaseWithReturn<PublishKudoCommand, KudoDomain> {
 
     private final UserRepository userRepository;

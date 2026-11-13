@@ -14,10 +14,8 @@ import co.edu.uco.ucokudos.services.usecases.UseCaseWithReturn;
 import java.time.Clock;
 import java.util.Locale;
 
-/** Autentica con correo institucional y contraseña y emite un JWT de vida corta. */
 public class LoginInteractor implements UseCaseWithReturn<LoginCommand, LoginResult> {
 
-    /** Mensaje genérico: no revela si el correo existe (evita enumeración de usuarios). */
     private static final String INVALID_CREDENTIALS = "Credenciales inválidas";
 
     private final UserRepository userRepository;

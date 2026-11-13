@@ -6,7 +6,6 @@ import co.edu.uco.ucokudos.domain.notification.NotificationResult;
 import co.edu.uco.ucokudos.services.output.ports.notifications.NotificationSender;
 import org.springframework.stereotype.Component;
 
-/** Notificación PUSH en tiempo real, solo si el destinatario tiene la aplicación abierta. */
 @Component
 public class SsePushNotificationSender implements NotificationSender {
 

@@ -23,7 +23,6 @@ public final class KudoEntityMapper {
                 attachments.stream().map(KudoEntityMapper::toDomain).toList());
     }
 
-    /** Metadatos sin binario (content = null). */
     public static AttachmentDomain toDomain(AttachmentMetadata metadata) {
         return new AttachmentDomain(metadata.id(), metadata.fileName(), metadata.contentType(),
                 metadata.sizeBytes(), metadata.sha256(), null);

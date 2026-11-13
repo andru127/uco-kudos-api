@@ -5,7 +5,6 @@ import co.edu.uco.ucokudos.domain.exception.DomainException;
 import java.util.Objects;
 import java.util.UUID;
 
-/** Categoría de reconocimiento (Empatía, Liderazgo, Espíritu UCO...). */
 public record CategoryDomain(UUID id, String name, String description, boolean active) {
 
     public CategoryDomain {

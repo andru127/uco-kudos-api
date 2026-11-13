@@ -10,14 +10,6 @@ import io.micrometer.core.instrument.Timer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Decorador (patrón Decorator) que agrega a cualquier canal:
- * <ul>
- *   <li>Reintentos con backoff lineal ante fallos transitorios (resiliencia).</li>
- *   <li>Métricas: contador kudos.notifications{channel,status} y temporizador por canal (observabilidad).</li>
- *   <li>Contención: ninguna excepción escapa; se convierte en resultado FAILED.</li>
- * </ul>
- */
 public class ResilientNotificationSender implements NotificationSender {
 
     private static final Logger LOG = LoggerFactory.getLogger(ResilientNotificationSender.class);

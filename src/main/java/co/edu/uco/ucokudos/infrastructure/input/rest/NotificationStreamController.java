@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
-/** El front-end abre esta conexión al iniciar sesión; mientras esté abierta el usuario "está conectado". */
 @RestController
 @RequestMapping("/api/v1/notifications")
 public class NotificationStreamController {

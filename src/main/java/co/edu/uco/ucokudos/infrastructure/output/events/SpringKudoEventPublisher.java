@@ -5,10 +5,6 @@ import co.edu.uco.ucokudos.services.output.ports.events.KudoPublishedEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
-/**
- * Bus de eventos en proceso (línea base). Al estar detrás de un puerto, puede reemplazarse por
- * RabbitMQ/Kafka/SQS sin tocar el caso de uso (ver ADR-003).
- */
 @Component
 public class SpringKudoEventPublisher implements KudoEventPublisher {
 

@@ -2,7 +2,6 @@ package co.edu.uco.ucokudos.domain.notification;
 
 import java.util.UUID;
 
-/** Datos mínimos que necesita cualquier canal para avisar al destinatario de un Kudo. */
 public record KudoNotification(UUID kudoId, UUID recipientId, String recipientName, String recipientEmail,
                                String recipientPhone, String authorName, String categoryName, String contentPreview) {
 

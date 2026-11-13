@@ -16,10 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * Persiste la auditoría y además la emite como log estructurado (doble rastro: BD + logs).
- * Cada registro guarda el traceId de la petición para correlacionarlo con los logs.
- */
 @Component
 public class AuditRepositoryAdapter implements AuditRepository {
 

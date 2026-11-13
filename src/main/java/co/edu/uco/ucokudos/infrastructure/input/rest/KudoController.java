@@ -48,7 +48,6 @@ public class KudoController {
         this.getAttachment = getAttachment;
     }
 
-    /** Flujo obligatorio de la línea base. multipart/form-data para admitir adjuntos. */
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<KudoResponse> publish(@AuthenticationPrincipal Jwt jwt,
                                                 @RequestParam UUID recipientId,

@@ -1,10 +1,10 @@
 package co.edu.uco.ucokudos.domain.notification;
 
 public enum NotificationStatus {
-    /** Entregado al proveedor (SMTP, Twilio) o al navegador conectado. */
+    /** Entregado al proveedor */
     SENT,
-    /** Falló después de agotar los reintentos. */
+    /** Falló */
     FAILED,
-    /** No aplica: canal sin configurar o destinatario no conectado (push). */
+    /** canal sin configurar */
     SKIPPED
 }

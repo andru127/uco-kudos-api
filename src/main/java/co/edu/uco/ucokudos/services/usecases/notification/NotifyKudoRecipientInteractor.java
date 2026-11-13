@@ -10,10 +10,6 @@ import co.edu.uco.ucokudos.services.usecases.UseCaseWithoutReturn;
 import java.time.Clock;
 import java.util.List;
 
-/**
- * Envía la notificación por TODOS los canales registrados (correo, WhatsApp, push) y audita el
- * resultado de cada uno. Un canal que falla no impide que los demás se envíen (aislamiento de fallos).
- */
 public class NotifyKudoRecipientInteractor implements UseCaseWithoutReturn<KudoPublishedEvent> {
 
     private final List<NotificationSender> senders;

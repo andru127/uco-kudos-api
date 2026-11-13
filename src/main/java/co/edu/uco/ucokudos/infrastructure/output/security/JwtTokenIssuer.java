@@ -14,7 +14,6 @@ import java.time.Clock;
 import java.time.Instant;
 import java.util.List;
 
-/** Emite JWT firmados con HMAC-SHA256. El rol viaja en el claim "roles" para la autorización. */
 @Component
 public class JwtTokenIssuer implements TokenIssuer {
 

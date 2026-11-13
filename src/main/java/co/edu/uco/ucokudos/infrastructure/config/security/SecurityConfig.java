@@ -31,10 +31,6 @@ import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-/**
- * API sin estado (stateless) protegida con JWT. Defensa en profundidad: las rutas sensibles se restringen
- * aquí por rol y además el caso de uso valida la regla de negocio.
- */
 @Configuration
 public class SecurityConfig {
 

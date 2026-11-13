@@ -9,10 +9,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-/**
- * Agregado raíz Kudo. Concentra las reglas para publicar un reconocimiento.
- * El contenido no tiene límite de longitud por requisito.
- */
 public record KudoDomain(UUID id, UserDomain author, UserDomain recipient, CategoryDomain category,
                          String content, Instant publishedAt, List<AttachmentDomain> attachments) {
 
@@ -27,7 +23,6 @@ public record KudoDomain(UUID id, UserDomain author, UserDomain recipient, Categ
         attachments = attachments == null ? List.of() : List.copyOf(attachments);
     }
 
-    /** Fábrica que aplica todas las reglas de negocio de la publicación. */
     public static KudoDomain publish(UserDomain author, UserDomain recipient, CategoryDomain category,
                                      String content, List<AttachmentDomain> attachments, Instant now) {
         if (!author.active()) {

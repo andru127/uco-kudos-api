@@ -4,7 +4,6 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory;
 
 import java.time.Duration;
 
-/** Toda llamada a terceros tiene timeout: un proveedor lento no debe bloquear hilos indefinidamente. */
 public final class HttpClients {
 
     private static final Duration CONNECT_TIMEOUT = Duration.ofSeconds(5);

@@ -29,7 +29,6 @@ import java.util.stream.Collectors;
 @Component
 public class KudoRepositoryAdapter implements KudoRepository {
 
-    /** Caché del muro (DRV-002). TTL corto + invalidación al publicar. */
     public static final String FEED_CACHE = "kudoFeed";
 
     private final KudoJPARepository kudoRepository;

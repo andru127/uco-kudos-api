@@ -3,10 +3,6 @@ package co.edu.uco.ucokudos.domain.user;
 import java.util.EnumSet;
 import java.util.Set;
 
-/**
- * Roles institucionales. Cada usuario tiene exactamente un rol activo (restricción de exclusividad),
- * por eso el rol es un único valor y no una colección.
- */
 public enum Role {
     ADMINISTRADOR(6),
     RECTOR(5),

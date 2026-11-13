@@ -6,10 +6,6 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
-/**
- * Archivo adjunto a un Kudo. La lista blanca de tipos y el tamaño máximo son reglas de seguridad
- * del negocio (DRV-004 y DRV-005); el checksum SHA-256 permite verificar integridad y trazabilidad.
- */
 public record AttachmentDomain(UUID id, String fileName, String contentType, long sizeBytes,
                                String sha256, byte[] content) {
 
@@ -31,7 +27,6 @@ public record AttachmentDomain(UUID id, String fileName, String contentType, lon
         fileName = sanitize(fileName);
     }
 
-    /** Elimina rutas y caracteres peligrosos del nombre original (previene path traversal). */
     static String sanitize(String original) {
         String withoutPath = original.replace('\\', '/');
         withoutPath = withoutPath.substring(withoutPath.lastIndexOf('/') + 1);

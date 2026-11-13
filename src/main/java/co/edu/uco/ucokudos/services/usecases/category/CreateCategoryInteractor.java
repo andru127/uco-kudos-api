@@ -14,7 +14,6 @@ import co.edu.uco.ucokudos.services.usecases.UseCaseWithReturn;
 
 import java.time.Clock;
 
-/** Solo Administrador, Rector y Coordinador Académico pueden administrar categorías. */
 public class CreateCategoryInteractor implements UseCaseWithReturn<CreateCategoryCommand, CategoryDomain> {
 
     private final UserRepository userRepository;

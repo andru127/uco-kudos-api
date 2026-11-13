@@ -6,7 +6,6 @@ import co.edu.uco.ucokudos.domain.user.UserDomain;
 
 import java.util.UUID;
 
-/** Object Mother: datos de prueba legibles y reutilizables. */
 public final class TestData {
 
     private TestData() {

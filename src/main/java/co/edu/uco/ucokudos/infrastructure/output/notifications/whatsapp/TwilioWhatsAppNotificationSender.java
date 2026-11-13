@@ -16,11 +16,6 @@ import org.springframework.web.client.RestClientException;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
-/**
- * Canal WhatsApp mediante la API REST de Twilio (sandbox en la línea base).
- * Patrón Adapter: traduce nuestro puerto NotificationSender al contrato HTTP de Twilio.
- * Se usa RestClient directamente (sin SDK) para mantener la imagen pequeña y con menos dependencias vulnerables.
- */
 @Component
 public class TwilioWhatsAppNotificationSender implements NotificationSender {
 
@@ -65,7 +60,6 @@ public class TwilioWhatsAppNotificationSender implements NotificationSender {
         return "Basic " + Base64.getEncoder().encodeToString(credentials.getBytes(StandardCharsets.UTF_8));
     }
 
-    /** No se escribe el número completo en auditoría ni logs (minimización de datos personales). */
     static String mask(String phone) {
         return phone.length() <= 4 ? "****" : "*".repeat(phone.length() - 4) + phone.substring(phone.length() - 4);
     }

@@ -30,10 +30,6 @@ import org.springframework.context.annotation.Configuration;
 import java.time.Clock;
 import java.util.List;
 
-/**
- * Composition Root: el único lugar que conoce a la vez los casos de uso y sus implementaciones.
- * Gracias a esto la capa services no tiene ni una anotación de Spring (regla de dependencia de Clean Architecture).
- */
 @Configuration
 public class UseCaseConfig {
 

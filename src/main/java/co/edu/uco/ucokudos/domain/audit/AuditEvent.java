@@ -5,7 +5,6 @@ import co.edu.uco.ucokudos.domain.notification.NotificationResult;
 import java.time.Instant;
 import java.util.UUID;
 
-/** Registro inmutable de auditoría (quién, qué, sobre qué, cuándo y con qué resultado). */
 public record AuditEvent(UUID id, Instant occurredAt, UUID actorId, AuditAction action,
                          String resourceType, UUID resourceId, String detail) {
 

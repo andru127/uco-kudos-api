@@ -15,12 +15,6 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-/**
- * Registro de conexiones Server-Sent Events abiertas por usuario (un usuario puede tener varias pestañas
- * o dispositivos). Es lo que permite saber si el destinatario "está conectado" (paso 4 del flujo).
- * Limitación conocida: vive en memoria de una instancia; para escalar horizontalmente se propone
- * Redis Pub/Sub (ver ADR-005).
- */
 @Component
 public class SseConnectionRegistry {
 
@@ -48,7 +42,6 @@ public class SseConnectionRegistry {
         return connections.values().stream().mapToInt(List::size).sum();
     }
 
-    /** @return número de sesiones del usuario que recibieron el evento. */
     public int send(UUID userId, String eventName, Object payload) {
         int delivered = 0;
         for (SseEmitter emitter : connections.getOrDefault(userId, List.of())) {
@@ -59,7 +52,6 @@ public class SseConnectionRegistry {
         return delivered;
     }
 
-    /** Latido cada 25 s: evita que proxies (Render, Nginx) cierren conexiones inactivas. */
     @Scheduled(fixedRate = 25_000)
     public void heartbeat() {
         connections.forEach((userId, emitters) ->

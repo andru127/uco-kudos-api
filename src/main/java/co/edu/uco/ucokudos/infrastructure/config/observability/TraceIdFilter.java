@@ -14,10 +14,6 @@ import java.io.IOException;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
-/**
- * Asigna un traceId a cada petición (o reutiliza X-Request-Id si es válido), lo pone en el MDC para que
- * aparezca en todos los logs y en la auditoría, y lo devuelve en la cabecera X-Trace-Id.
- */
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class TraceIdFilter extends OncePerRequestFilter {

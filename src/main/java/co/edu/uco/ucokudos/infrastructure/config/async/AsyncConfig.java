@@ -10,10 +10,6 @@ import org.springframework.cache.annotation.EnableCaching;
 
 import java.util.concurrent.Executor;
 
-/**
- * Pool dedicado a notificaciones (patrón Bulkhead): si un proveedor externo se pone lento, solo
- * se satura este pool y no los hilos que atienden peticiones HTTP.
- */
 @Configuration
 @EnableAsync
 @EnableScheduling

@@ -2,10 +2,6 @@ package co.edu.uco.ucokudos.infrastructure.input.rest;
 
 import java.util.Arrays;
 
-/**
- * Detecta el tipo real del archivo por sus "magic bytes". No se confía en el Content-Type ni en la
- * extensión que envía el cliente (OWASP: Unrestricted File Upload).
- */
 final class FileTypeDetector {
 
     private static final byte[] PNG = {(byte) 0x89, 'P', 'N', 'G'};

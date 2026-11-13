@@ -6,7 +6,6 @@ import co.edu.uco.ucokudos.services.usecases.UseCaseWithReturn;
 
 import java.util.List;
 
-/** Directorio de usuarios activos a quienes se les puede dar un Kudo. */
 public class ListUsersInteractor implements UseCaseWithReturn<Void, List<UserDomain>> {
 
     private final UserRepository userRepository;

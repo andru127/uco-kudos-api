@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MetricsConfig {
 
-    /** Usuarios conectados en tiempo real (sesiones SSE abiertas). */
     @Bean
     Gauge sseConnectionsGauge(MeterRegistry registry, SseConnectionRegistry connections) {
         return Gauge.builder("kudos.push.connections", connections, SseConnectionRegistry::activeConnections)

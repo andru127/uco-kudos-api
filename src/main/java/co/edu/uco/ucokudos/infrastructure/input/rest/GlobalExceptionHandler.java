@@ -19,10 +19,6 @@ import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import java.util.stream.Collectors;
 
-/**
- * Traduce excepciones a respuestas RFC 9457 (Problem Details). Nunca devuelve stack traces al cliente:
- * los errores inesperados se registran en el log con su traceId y al cliente solo le llega un mensaje genérico.
- */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
