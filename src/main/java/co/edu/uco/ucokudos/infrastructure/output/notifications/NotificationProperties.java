@@ -13,7 +13,12 @@ public record NotificationProperties(Email email, WhatsApp whatsapp, Retry retry
         }
     }
 
-    public record WhatsApp(boolean enabled, String accountSid, String authToken, String from, String apiBaseUrl) {
+    public record WhatsApp(boolean enabled, String accountSid, String authToken, String from, String apiBaseUrl,
+                           String contentSid, String contentVariables) {
+
+        public boolean usesTemplate() {
+            return notBlank(contentSid);
+        }
 
         public boolean configured() {
             return enabled && notBlank(accountSid) && notBlank(authToken) && notBlank(from);
