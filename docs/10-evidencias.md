@@ -1,33 +1,132 @@
 # 10. Evidencias
 
-Guarda las capturas en `docs/evidencias/` con el nombre indicado. Cada evidencia incluye qué muestra y cómo obtenerla.
+Todas las capturas están en la carpeta `docs/evidencias/`. Fueron tomadas el 13 de noviembre de 2026 sobre el ambiente publicado:
 
-| # | Evidencia | Cómo obtenerla | Archivo |
-|---|---|---|---|
-| 1 | CI Back-End verde | GitHub → `uco-kudos-api` → Actions → último run en `main` | `evidencias/ci-backend.png` |
-| 2 | CI Front-End verde | Igual en `uco-kudos-web` | `evidencias/ci-frontend.png` |
-| 3 | CD despliegue disparado y health OK | Job Desplegar en Render + prueba de humo expandido | `evidencias/cd-backend.png` |
-| 4 | Sonar Back-End | SonarQube Cloud → proyecto → Overview (Quality Gate, cobertura, code smells) | `evidencias/sonar-backend.png` |
-| 5 | Sonar Front-End | Ídem | `evidencias/sonar-frontend.png` |
-| 6 | Trivy repositorio e imagen | Artefactos `trivy-fs-backend`, `trivy-image-backend`, `trivy-frontend` o log del job | `evidencias/trivy.png` |
-| 7 | Publicación | Front abierto en el celular con la URL pública visible | `evidencias/publicacion-movil.png` |
-| 8 | Despliegue | Render → servicio → Events (deploy live) | `evidencias/render-deploy.png` |
-| 9 | Correo recibido | Bandeja de `DEMO_RECIPIENT_EMAIL` | `evidencias/correo.png` |
-| 10 | WhatsApp recibido | Captura del chat con el sandbox de Twilio | `evidencias/whatsapp.png` |
-| 11 | Push en tiempo real | Sesión del Estudiante Demo abierta mostrando el toast | `evidencias/push.png` |
-| 12 | Auditoría | `GET /api/v1/audit?resourceId=<kudoId>` como Rector, o consulta SQL a `audit_events` | `evidencias/auditoria.png` |
-| 13 | Observabilidad | `/actuator/health` y `/actuator/prometheus` filtrado por `kudos_` + logs de Render con el mismo traceId | `evidencias/observabilidad.png` |
-| 14 | Pruebas | Resultado de `./mvnw verify` / reporte JaCoCo / `npm test` / reporte Playwright | `evidencias/pruebas.png` |
+- Front-End: https://uco-kudos-web.onrender.com
+- Back-End: https://uco-kudos-api.onrender.com
 
-## Consultar la auditoría por API
+## Resumen
 
-```bash
-TOKEN=$(curl -s -X POST https://<api>/api/v1/auth/login -H 'Content-Type: application/json' \
-  -d '{"email":"rector@uco.edu.co","password":"<DEMO_PASSWORD>"}' | jq -r .accessToken)
-curl -s "https://<api>/api/v1/audit?resourceId=<kudoId>" -H "Authorization: Bearer $TOKEN" | jq
-```
+| Evidencia exigida | Archivo |
+|---|---|
+| CI | `01-ci-backend.jpg`, `02-ci-frontend.jpg` |
+| CD | `03-cd-backend.jpg` |
+| Sonar | `04-sonar-backend.jpg`, `05-sonar-frontend.jpg` |
+| Trivy | `06-trivy-bloqueo.jpg`, `07-trivy-ok.jpg` |
+| Pruebas | `08-pruebas-backend-cobertura.jpg`, `09-pruebas-frontend.jpg`, `16-pruebas-e2e.jpg` |
+| Despliegue | `10-render-despliegue.jpg` |
+| Observabilidad | `11-observabilidad-health.jpg`, `17-observabilidad-metricas.jpg` |
+| Publicación | `12-publicacion-escritorio.jpg`, `13-publicacion-movil.jpg` |
+| Correo electrónico | `14-correo.jpg` |
+| WhatsApp | `15-whatsapp.jpg` |
+| Push Notifications | `18-push-escritorio.jpg`, `18-push-movil.jpg` |
+| Auditoría | `19-auditoria.jpg` |
 
-## Consulta útil para la auditoría
+## CI
+
+Pipeline del Back-End: compilación, pruebas, análisis con Sonar, Trivy del repositorio, construcción de la imagen, Trivy de la imagen y despliegue, todo en verde.
+
+![CI Back-End](evidencias/01-ci-backend.jpg)
+
+Pipeline del Front-End: tipos, pruebas, build, Sonar, Trivy, despliegue y pruebas End-to-End sobre el ambiente publicado.
+
+![CI Front-End](evidencias/02-ci-frontend.jpg)
+
+## CD
+
+El job de despliegue invoca el deploy hook de Render (oculto como secreto) y espera a que `/actuator/health` responda HTTP 200 antes de dar el despliegue por exitoso.
+
+![CD Back-End](evidencias/03-cd-backend.jpg)
+
+## Sonar
+
+Quality Gate aprobado en ambos proyectos.
+
+![Sonar Back-End](evidencias/04-sonar-backend.jpg)
+
+![Sonar Front-End](evidencias/05-sonar-frontend.jpg)
+
+## Trivy
+
+El escaneo de la imagen detectó 4 vulnerabilidades CRITICAL en Tomcat embebido (versión 11.0.24) y bloqueó el despliegue. Se actualizó Tomcat a 11.0.25 y Jackson a 3.1.7 en el `pom.xml` (commit "Actualiza Tomcat y Jackson por vulnerabilidades reportadas por Trivy") y el pipeline volvió a pasar. Esto evidencia el ciclo DevSecOps: detectar, bloquear, corregir y desplegar.
+
+Ejecución bloqueada por Trivy:
+
+![Trivy bloqueo](evidencias/06-trivy-bloqueo.jpg)
+
+Ejecución corregida:
+
+![Trivy OK](evidencias/07-trivy-ok.jpg)
+
+## Pruebas
+
+Back-End: 85 pruebas (unitarias e integración), cobertura de instrucciones del 95 % medida con JaCoCo.
+
+![Pruebas Back-End](evidencias/08-pruebas-backend-cobertura.jpg)
+
+Front-End: 18 pruebas unitarias y de componentes con Vitest.
+
+![Pruebas Front-End](evidencias/09-pruebas-frontend.jpg)
+
+End-to-End: Playwright con viewport móvil, ejecutado por el pipeline contra la URL publicada.
+
+![Pruebas E2E](evidencias/16-pruebas-e2e.jpg)
+
+## Despliegue
+
+Servicios publicados en Render: la API como contenedor Docker y el Front-End como sitio estático.
+
+![Render](evidencias/10-render-despliegue.jpg)
+
+## Observabilidad
+
+Endpoint de salud con los grupos liveness y readiness.
+
+![Health](evidencias/11-observabilidad-health.jpg)
+
+Métricas en formato Prometheus, incluidas las propias `kudos_notifications_total` y `kudos_push_connections`.
+
+![Métricas](evidencias/17-observabilidad-metricas.jpg)
+
+## Publicación
+
+Aplicación publicada en escritorio y en celular.
+
+![Publicación escritorio](evidencias/12-publicacion-escritorio.jpg)
+
+![Publicación móvil](evidencias/13-publicacion-movil.jpg)
+
+## Correo electrónico
+
+Correo recibido por el destinatario del Kudo, enviado por Brevo, con autor, categoría y mensaje.
+
+![Correo](evidencias/14-correo.jpg)
+
+## WhatsApp
+
+Mensajes recibidos desde el número de prueba de Twilio. La cuenta de prueba solo permite plantillas preaprobadas, por lo que el texto corresponde a la plantilla de ejemplo de Twilio; el adaptador ya soporta plantillas propias mediante `TWILIO_CONTENT_SID` y `TWILIO_CONTENT_VARIABLES`.
+
+![WhatsApp](evidencias/15-whatsapp.jpg)
+
+## Push Notifications
+
+Aviso en tiempo real recibido por el destinatario con la aplicación abierta (Server-Sent Events). Al llegar el evento, la aplicación muestra el aviso y actualiza el muro sin recargar la página.
+
+En escritorio, el Docente Demo recibe el Kudo que le envió el Estudiante Demo:
+
+![Push escritorio](evidencias/18-push-escritorio.jpg)
+
+En celular, el Estudiante Demo recibe el Kudo que le envió el Docente Demo:
+
+![Push móvil](evidencias/18-push-movil.jpg)
+
+## Auditoría
+
+Registros `KUDO_PUBLISHED` y `NOTIFICATION_SENT` (EMAIL, WHATSAPP y PUSH) de un mismo Kudo, con el mismo traceId.
+
+![Auditoría](evidencias/19-auditoria.jpg)
+
+Consulta equivalente en la base de datos:
 
 ```sql
 SELECT occurred_at, action, detail, trace_id
@@ -35,23 +134,3 @@ FROM audit_events
 WHERE resource_id = '<kudoId>'
 ORDER BY occurred_at;
 ```
-
-Resultado esperado: `KUDO_PUBLISHED`, `NOTIFICATION_SENT` (EMAIL), `NOTIFICATION_SENT` (WHATSAPP), `NOTIFICATION_SENT` (PUSH) — todos con el mismo `trace_id`.
-
-## Galería
-
-<!-- Reemplaza cada línea por la captura correspondiente -->
-![CI Back-End](evidencias/ci-backend.png)
-![CI Front-End](evidencias/ci-frontend.png)
-![CD](evidencias/cd-backend.png)
-![Sonar Back-End](evidencias/sonar-backend.png)
-![Sonar Front-End](evidencias/sonar-frontend.png)
-![Trivy](evidencias/trivy.png)
-![Publicación](evidencias/publicacion-movil.png)
-![Despliegue](evidencias/render-deploy.png)
-![Correo](evidencias/correo.png)
-![WhatsApp](evidencias/whatsapp.png)
-![Push](evidencias/push.png)
-![Auditoría](evidencias/auditoria.png)
-![Observabilidad](evidencias/observabilidad.png)
-![Pruebas](evidencias/pruebas.png)
