@@ -23,6 +23,7 @@ El autor de un Kudo siempre se toma del token (`sub`), nunca del cuerpo de la pe
 - Ningún secreto en el código ni en las migraciones: `JWT_SECRET`, `DB_PASSWORD`, `BREVO_API_KEY`, `TWILIO_AUTH_TOKEN`, `DEMO_PASSWORD`, `SONAR_TOKEN`, `RENDER_DEPLOY_HOOK_URL` viven en Render Environment y GitHub Secrets.
 - Si falta un secreto obligatorio la aplicación no arranca (fail fast).
 - Trivy ejecuta el escáner `secret` en cada pipeline para detectar credenciales filtradas.
+- Rotación: si un secreto queda expuesto (por ejemplo en una captura de pantalla), se genera uno nuevo en el proveedor, se actualiza en Render y GitHub, y se revoca el anterior.
 - `.gitignore` excluye `.env`. El perfil `local` contiene solo valores de desarrollo sin valor real.
 
 ## 7.4 Validaciones
@@ -48,7 +49,7 @@ El autor de un Kudo siempre se toma del token (`sub`), nunca del cuerpo de la pe
 
 | Integración | Controles |
 |---|---|
-| Brevo / Twilio | Solo HTTPS; credenciales por entorno; timeouts (5 s conexión, 10 s lectura); reintentos acotados; sin SDKs (menos dependencias = menos superficie para CVE); el celular se enmascara en auditoría y logs |
+| Brevo / Twilio | Solo HTTPS; credenciales por entorno; timeouts (5 s conexión, 10 s lectura); reintentos acotados; sin SDKs (menos dependencias = menos superficie para CVE); el celular se enmascara en auditoría y logs. La clave de Brevo es restringida: solo puede enviar correos transaccionales (mínimo privilegio). WhatsApp usa plantillas aprobadas (ADR-010) |
 | SonarQube Cloud | Token en GitHub Secrets |
 | Trivy | Imagen fijada a 0.69.3, versión confirmada como segura tras el compromiso de la cadena de suministro de marzo de 2026 (CVE-2026-33634). No se usan las GitHub Actions de Trivy cuyos tags fueron secuestrados. |
 | GitHub Actions | Permisos mínimos (`contents: read`, `packages: write`); entorno `production` para el despliegue |
@@ -71,7 +72,7 @@ El autor de un Kudo siempre se toma del token (`sub`), nunca del cuerpo de la pe
 | A03 Inyección | JPA con parámetros; escape de HTML; validación de traceId | Bajo |
 | A04 Diseño inseguro | Reglas en el dominio; threat modeling de adjuntos | Medio: sin MFA |
 | A05 Configuración insegura | Trivy `misconfig`; contenedor sin root; Actuator limitado | `/actuator/prometheus` público para evidencias (restringir en producción real) |
-| A06 Componentes vulnerables | Trivy (repo e imagen) bloquea CRÍTICAS con parche; Sonar | Depende del ritmo de parches |
+| A06 Componentes vulnerables | Trivy (repo e imagen) bloquea CRÍTICAS con parche; Sonar. Caso real: Trivy bloqueó el despliegue por 4 CVE críticas en Tomcat 11.0.24 y se corrigió fijando 11.0.25 (ADR-011) | Depende del ritmo de parches |
 | A07 Fallas de autenticación | Mensaje genérico, auditoría de intentos | Sin rate limiting ni bloqueo por intentos (pendiente: API Gateway / Bucket4j) |
 | A08 Integridad de software | Imagen de Trivy fijada; SHA-256 de adjuntos; imagen etiquetada por commit | Sin firma de imágenes (Cosign) |
 | A09 Registro y monitoreo | Auditoría + logs con traceId + métricas | Logs efímeros en plan free |

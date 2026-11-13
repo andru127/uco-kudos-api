@@ -8,7 +8,7 @@
                   / E2E\       1 escenario completo contra el ambiente publicado
                  /------\
                 /        \     Integración (SpringBootTest + MockMvc + H2/Flyway)
-               /INTEGRAC. \    7 escenarios: flujo completo, 401, 403, 422, adjunto falso
+               /INTEGRAC. \    15 escenarios: flujo completo, endpoints, 401, 403, 404, 400, 422, adjunto falso
               /------------\
              /              \  Unitarias (JUnit 5 + Mockito, Vitest + Testing Library)
             /   UNITARIAS    \ dominio, casos de uso, decoradores, utilidades, componentes
@@ -17,11 +17,13 @@
 
 | Nivel | Back-End | Front-End | Qué demuestra |
 |---|---|---|---|
-| Unitarias | `KudoDomainTest`, `AttachmentDomainTest`, `RoleTest`, `PublishKudoInteractorTest`, `NotifyKudoRecipientInteractorTest`, `LoginInteractorTest`, `ResilientNotificationSenderTest`, `SsePushNotificationSenderTest`, `FileTypeDetectorTest`, `CleanArchitectureRulesTest` | `format.test.ts`, `client.test.ts`, `KudoCard.test.tsx`, `LoginView.test.tsx`, `PublishKudoView.test.tsx` | Reglas de negocio, aislamiento de fallos, reintentos, seguridad de archivos, regla de dependencia |
-| Integración | `PublishKudoFlowIntegrationTest`: API real + seguridad + JPA + Flyway + evento asíncrono + auditoría | — | Que las piezas funcionan juntas: 201 + persistencia + 4 registros de auditoría |
+| Unitarias | `KudoDomainTest`, `AttachmentDomainTest`, `RoleTest`, `UserAndCategoryDomainTest`, `PagingTest`, `PublishKudoInteractorTest`, `NotifyKudoRecipientInteractorTest`, `LoginInteractorTest`, `UserCategoryAuditInteractorsTest`, `ResilientNotificationSenderTest`, `SsePushNotificationSenderTest`, `EmailNotificationSenderTest`, `TwilioWhatsAppNotificationSenderTest`, `TraceIdFilterTest`, `FileTypeDetectorTest`, `CleanArchitectureRulesTest` | `format.test.ts`, `client.test.ts`, `KudoCard.test.tsx`, `LoginView.test.tsx`, `PublishKudoView.test.tsx` | Reglas de negocio, aislamiento de fallos, reintentos, seguridad de archivos, regla de dependencia |
+| Integración | `PublishKudoFlowIntegrationTest` (flujo completo con evento asíncrono y auditoría) y `ApiEndpointsIntegrationTest` (perfil, contacto, categorías, descarga de adjuntos, auditoría, errores, push y traceId) | — | Que las piezas funcionan juntas: API real + seguridad + JPA + Flyway |
 | End-to-End | — | `e2e/publicar-kudo.spec.ts` | Un docente inicia sesión en un celular, publica un Kudo y lo ve en el muro, sobre la URL pública |
 
 Comandos: `./mvnw verify` (back, incluye JaCoCo), `npm test` (front, con cobertura), `npm run test:e2e` (con `E2E_BASE_URL`).
+
+Resultados: Back-End 85 pruebas con 95 % de cobertura de instrucciones (JaCoCo); Front-End 18 pruebas; E2E en verde en cada despliegue. El Quality Gate de SonarQube Cloud exige 80 % de cobertura en código nuevo; la primera ejecución falló por cobertura insuficiente y se corrigió agregando pruebas. Las pruebas E2E publican Kudos reales con el texto `Kudo E2E <marca de tiempo>`, por eso aparecen en el muro.
 
 ## 8.2 Observabilidad
 

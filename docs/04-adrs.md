@@ -102,4 +102,28 @@ Contexto. Los servicios gratuitos de PaaS como Render restringen el tráfico SMT
 
 Decisión. Proveedor configurable `EMAIL_PROVIDER=brevo|smtp`; por defecto Brevo vía `POST /v3/smtp/email`.
 
-Consecuencias. (+) Funciona en el plan gratuito; 300 correos/día. (−) Requiere verificar el remitente en Brevo.
+Consecuencias. (+) Funciona en el plan gratuito; 300 correos/día. (−) Requiere verificar el remitente en Brevo. (−) Spring Boot registra un chequeo de salud del servidor SMTP que, sin servidor configurado, marca la aplicación como DOWN; se desactiva con `management.health.mail.enabled=false` (variable `MANAGEMENT_HEALTH_MAIL_ENABLED`). Este problema lo detectó el health check de Render durante el primer despliegue.
+
+---
+
+## ADR-010 — WhatsApp mediante plantillas de Twilio (ContentSid)
+
+Contexto. Al desplegar, Twilio rechazó los mensajes de texto libre con el error 21654 "ContentSid Required": la cuenta de prueba solo permite plantillas preaprobadas. Además, WhatsApp exige plantillas aprobadas para cualquier conversación iniciada por la empresa, que es exactamente el caso de UCO Kudos.
+
+Decisión. El adaptador `TwilioWhatsAppNotificationSender` envía la plantilla indicada en `TWILIO_CONTENT_SID` y llena sus variables a partir de `TWILIO_CONTENT_VARIABLES`, un JSON con marcadores `{author}`, `{category}`, `{recipient}` y `{preview}`. Si no hay plantilla configurada, envía texto libre (`Body`), útil en cuentas que lo permitan.
+
+Alternativas. Solo texto libre (no funciona en la cuenta de prueba ni fuera de la ventana de 24 h); SDK oficial de Twilio (más dependencias y superficie de vulnerabilidades).
+
+Consecuencias. (+) Funciona en la cuenta de prueba y es el mecanismo exigido en producción. (+) Cambiar de plantilla es solo configuración (Twelve-Factor III), sin tocar código (OCP). (−) En la cuenta de prueba el texto es el de la plantilla de ejemplo de Twilio, no uno personalizado del Kudo; el correo sí contiene autor, categoría y mensaje. Evolución: número de WhatsApp Business y plantilla propia aprobada por Meta.
+
+---
+
+## ADR-011 — Fijar versiones parcheadas de dependencias transitivas
+
+Contexto. El escaneo de la imagen con Trivy encontró 4 vulnerabilidades CRITICAL en `tomcat-embed-core` 11.0.24 y 5 HIGH en Jackson 3.1.5, dependencias que llegan a través de Spring Boot. El pipeline bloqueó la publicación y el despliegue.
+
+Decisión. Sobrescribir las versiones gestionadas por Spring Boot en el `pom.xml` con las propiedades `tomcat.version` (11.0.25) y `jackson-bom.version` (3.1.7), en lugar de esperar una nueva versión de Spring Boot.
+
+Alternativas. Registrar las CVE en `.trivyignore` (no justificable: había parche y afectaban control de acceso); esperar la siguiente versión de Spring Boot (dejaría el sistema expuesto).
+
+Consecuencias. (+) Imagen sin vulnerabilidades críticas y pipeline en verde. (+) Evidencia del ciclo DevSecOps: detectar, bloquear, corregir, desplegar. (−) Las propiedades deben retirarse cuando Spring Boot incluya esas versiones, para no quedarse fijados en versiones antiguas.

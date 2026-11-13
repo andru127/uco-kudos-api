@@ -5,8 +5,8 @@ Proyecto Integrador Final · Ingeniería del Software II · 2026-2.
 
 | | |
 |---|---|
-| API pública | `https://CAMBIAR.onrender.com` (health: `/actuator/health`) |
-| Front-End | `https://CAMBIAR.onrender.com` · repositorio `uco-kudos-web` |
+| API pública | https://uco-kudos-api.onrender.com (salud: `/actuator/health`) |
+| Front-End | https://uco-kudos-web.onrender.com · repositorio https://github.com/andru127/uco-kudos-web |
 | Stack | Java 21 · Spring Boot 4 · PostgreSQL 17 · Flyway · Spring Security (JWT) · Micrometer/Prometheus · Docker |
 | DevSecOps | GitHub Actions · SonarQube Cloud · Trivy · GHCR · Render |
 
@@ -22,16 +22,16 @@ Proyecto Integrador Final · Ingeniería del Software II · 2026-2.
 
 | # | Documento |
 |---|---|
-| 1 | [Visión, alcance (línea base vs. objetivo), drivers y atributos de calidad](docs/01-vision-alcance-y-drivers.md) |
-| 2 | [Diseño: diagramas de nivel 1, nivel 2, componentes, paquetes, secuencia y modelo de datos](docs/02-diseno-arquitectonico.md) |
-| 3 | [ABB y SBB](docs/03-abb-sbb.md) |
-| 4 | [ADRs](docs/04-adrs.md) |
-| 5 | [Clean Architecture, SOLID, Clean Code y patrones](docs/05-clean-architecture-solid-patrones.md) |
-| 6 | [Manifiesto Reactivo y matriz Twelve-Factor](docs/06-reactive-manifesto-y-twelve-factor.md) |
-| 7 | [Desarrollo seguro](docs/07-desarrollo-seguro.md) |
-| 8 | [Pirámide de pruebas, observabilidad y DevSecOps](docs/08-pruebas-observabilidad-devsecops.md) |
-| 9 | [Manual de puesta a punto](docs/09-manual-puesta-a-punto.md) |
-| 10 | [Evidencias](docs/10-evidencias.md) |
+| 1 | [Visión, alcance (línea base vs. objetivo), drivers y atributos de calidad](01-vision-alcance-y-drivers.md) |
+| 2 | [Diseño: diagramas de nivel 1, nivel 2, componentes, paquetes, secuencia y modelo de datos](02-diseno-arquitectonico.md) |
+| 3 | [ABB y SBB](03-abb-sbb.md) |
+| 4 | [ADRs](04-adrs.md) |
+| 5 | [Clean Architecture, SOLID, Clean Code y patrones](05-clean-architecture-solid-patrones.md) |
+| 6 | [Manifiesto Reactivo y matriz Twelve-Factor](06-reactive-manifesto-y-twelve-factor.md) |
+| 7 | [Desarrollo seguro](07-desarrollo-seguro.md) |
+| 8 | [Pirámide de pruebas, observabilidad y DevSecOps](08-pruebas-observabilidad-devsecops.md) |
+| 9 | [Manual de puesta a punto](09-manual-puesta-a-punto.md) |
+| 10 | [Evidencias](10-evidencias.md) |
 
 ## Inicio rápido
 
