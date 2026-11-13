@@ -70,8 +70,6 @@ Front-End: 18 pruebas unitarias y de componentes con Vitest.
 
 End-to-End: Playwright con viewport móvil, ejecutado por el pipeline contra la URL publicada.
 
-![Pruebas E2E](evidencias/16-pruebas-e2e.jpg)
-
 ## Despliegue
 
 Servicios publicados en Render: la API como contenedor Docker y el Front-End como sitio estático.
@@ -85,8 +83,6 @@ Endpoint de salud con los grupos liveness y readiness.
 ![Health](evidencias/11-observabilidad-health.jpg)
 
 Métricas en formato Prometheus, incluidas las propias `kudos_notifications_total` y `kudos_push_connections`.
-
-![Métricas](evidencias/17-observabilidad-metricas.jpg)
 
 ## Publicación
 
@@ -123,8 +119,6 @@ En celular, el Estudiante Demo recibe el Kudo que le envió el Docente Demo:
 ## Auditoría
 
 Registros `KUDO_PUBLISHED` y `NOTIFICATION_SENT` (EMAIL, WHATSAPP y PUSH) de un mismo Kudo, con el mismo traceId.
-
-![Auditoría](evidencias/19-auditoria.jpg)
 
 Consulta equivalente en la base de datos:
 
