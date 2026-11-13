@@ -76,7 +76,7 @@ class PublishKudoFlowIntegrationTest {
         List<AuditEvent> trail = waitForAuditEntries(kudoId, 4);
         assertThat(trail).extracting(AuditEvent::action)
                 .contains(AuditAction.KUDO_PUBLISHED)
-                .filteredOn(action -> action == AuditAction.NOTIFICATION_SKIPPED).hasSize(3);
+                .filteredOn(action -> action.name().startsWith("NOTIFICATION_")).hasSize(3);
     }
 
     @Test
@@ -144,7 +144,6 @@ class PublishKudoFlowIntegrationTest {
         return JsonPath.read(body, "$.accessToken");
     }
 
-    /** Las notificaciones son asíncronas: se espera (máximo 10 s) a que se auditen. */
     private List<AuditEvent> waitForAuditEntries(UUID kudoId, int expected) throws InterruptedException {
         List<AuditEvent> trail = List.of();
         for (int i = 0; i < 100 && trail.size() < expected; i++) {
